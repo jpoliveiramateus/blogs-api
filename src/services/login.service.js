@@ -1,7 +1,6 @@
 const { User } = require('../models');
 
 const getUser = async ({ email, password }) => {
-
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
@@ -17,4 +16,4 @@ const getUser = async ({ email, password }) => {
 
 module.exports = {
   getUser,
-}
+};

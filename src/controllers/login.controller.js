@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   const userId = await login.getUser({ email, password });
 
   if (!userId) {
-    return res.status(400).json({ message: "Invalid fields" });
+    return res.status(400).json({ message: 'Invalid fields' });
   }
 
   const token = jwt.sign({ userId }, JWT_SECRET, {});
