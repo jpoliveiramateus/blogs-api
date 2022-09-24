@@ -22,8 +22,19 @@ const createCategorySchema = Joi.object({
   name: Joi.string().min(2).required(),
 });
 
+const createPostSchema = Joi.object({
+  title: Joi.string().min(2).required().messages({
+    'string.empty': 'Some required fields are missing',
+  }),
+  content: Joi.string().min(5).required().messages({
+    'string.empty': 'Some required fields are missing',
+  }),
+  categoryIds: Joi.array().required(),
+});
+
 module.exports = {
   loginSchema,
   createUserSchema,
   createCategorySchema,
+  createPostSchema,
 };
