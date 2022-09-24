@@ -8,9 +8,8 @@ const create = async ({ displayName, email, password, image }) => {
   }
   
   const userCreated = await User.create({ displayName, email, password, image });
-  const { id } = await User.findOne({ where: { email: userCreated.email } });
   
-  return id;
+  return userCreated.id;
 };
 
 const getAll = async () => {
