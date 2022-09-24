@@ -22,8 +22,18 @@ const getById = async (id) => {
   return user;
 };
 
+const deleteUser = async (id) => {
+  try {
+    await User.destroy({ where: { id } });
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  deleteUser,
 };
