@@ -7,8 +7,10 @@ const auth = require('../middlewares/auth');
 
 const { user } = require('../controllers');
 
-router.post('/', validateCreateUser, user.create);
+router.get('/:id', auth, user.getById);
 
 router.get('/', auth, user.getAll);
+
+router.post('/', validateCreateUser, user.create);
 
 module.exports = router;
