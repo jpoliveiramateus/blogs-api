@@ -44,7 +44,7 @@ const getAllByUser = async (userId) => {
   const posts = await BlogPost.findAll({
     where: { userId },
     include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: User, as: 'user', on: { id: userId }, attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
@@ -92,6 +92,24 @@ const deleteByIdAndUser = async ({ id, userId }) => {
   return true;
 };
 
+const getBySearchTerm = async ({ q, userId }) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      userId,
+      [Sequelize.Op.or]: {
+        title: { [Sequelize.Op.like]: `%${q}%` },
+        content: { [Sequelize.Op.like]: `%${q}%` },
+      },
+    },
+    include: [
+      { model: User, as: 'user', on: { id: userId }, attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   create,
   getAllById,
@@ -99,4 +117,5 @@ module.exports = {
   getByIdAndUser,
   updateByIdAndUser,
   deleteByIdAndUser,
+  getBySearchTerm,
 };

@@ -53,7 +53,7 @@ const deleteByIdAndUser = async (req, res) => {
   const { id } = req.params; 
   const { id: userId } = req.user;
 
-   const post = await postService.getAllById(id);
+  const post = await postService.getAllById(id);
 
   if (!post) {
     return res.status(404).json({ message: 'Post does not exist' });
@@ -68,10 +68,20 @@ const deleteByIdAndUser = async (req, res) => {
   return res.sendStatus(204);
 };
 
+const getBySearchTerm = async (req, res) => {
+  const { q } = req.query;
+  const { id: userId } = req.user;
+
+  const posts = await postService.getBySearchTerm({ q, userId });
+
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   create,
   getAllByUser,
   getByIdAndUser,
   updateByIdAndUser,
   deleteByIdAndUser,
+  getBySearchTerm,
 };

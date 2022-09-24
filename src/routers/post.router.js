@@ -7,6 +7,8 @@ const auth = require('../middlewares/auth');
 
 const { post } = require('../controllers');
 
+router.get('/search', auth, post.getBySearchTerm);
+
 router.delete('/:id', auth, post.deleteByIdAndUser);
 
 router.put('/:id', auth, validateUpdatePost, post.updateByIdAndUser);
