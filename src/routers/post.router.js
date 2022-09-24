@@ -7,6 +7,8 @@ const auth = require('../middlewares/auth');
 
 const { post } = require('../controllers');
 
+router.delete('/:id', auth, post.deleteByIdAndUser);
+
 router.put('/:id', auth, validateUpdatePost, post.updateByIdAndUser);
 
 router.get('/:id', auth, post.getByIdAndUser);

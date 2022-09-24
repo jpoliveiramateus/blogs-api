@@ -32,6 +32,14 @@ const create = async ({ title, content, userId, categoryIds }) => {
   }
 };
 
+const getAllById = async (id) => {
+  const [post] = await BlogPost.findAll({
+    where: { id },
+  });
+
+  return post;
+};
+
 const getAllByUser = async (userId) => {
   const posts = await BlogPost.findAll({
     where: { userId },
@@ -46,9 +54,9 @@ const getAllByUser = async (userId) => {
 
 const getByIdAndUser = async (id, userId) => {
   const [post] = await BlogPost.findAll({
-    where: { userId },
+    where: { id, userId },
     include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] }, where: { id } },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
@@ -72,9 +80,23 @@ const updateByIdAndUser = async ({ id, title, content, userId }) => {
   return true;
 };
 
+const deleteByIdAndUser = async ({ id, userId }) => {
+  const post = await getByIdAndUser(id, userId);
+  
+  if (!post) {
+    return false;
+  }
+
+  await BlogPost.destroy({ where: { id, userId } });
+
+  return true;
+};
+
 module.exports = {
   create,
+  getAllById,
   getAllByUser,
   getByIdAndUser,
   updateByIdAndUser,
+  deleteByIdAndUser,
 };
