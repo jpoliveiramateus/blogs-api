@@ -45,7 +45,7 @@ const getAllByUser = async (userId) => {
 };
 
 const getByIdAndUser = async (id, userId) => {
-  const [posts] = await BlogPost.findAll({
+  const [post] = await BlogPost.findAll({
     where: { userId },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] }, where: { id } },
@@ -53,11 +53,28 @@ const getByIdAndUser = async (id, userId) => {
     ],
   });
 
-  return posts;
+  return post;
+};
+
+const updateByIdAndUser = async ({ id, title, content, userId }) => {
+  const post = await getByIdAndUser(id, userId);
+
+  if (!post) {
+    return false;
+  }
+
+  await BlogPost.update({ title, content }, {
+    where: {
+      id,
+    },
+  });
+
+  return true;
 };
 
 module.exports = {
   create,
   getAllByUser,
   getByIdAndUser,
+  updateByIdAndUser,
 };

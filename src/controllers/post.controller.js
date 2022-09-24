@@ -24,17 +24,34 @@ const getByIdAndUser = async (req, res) => {
   const { id } = req.params; 
   const { id: userId } = req.user;
 
-  const posts = await postService.getByIdAndUser(id, userId);
+  const post = await postService.getByIdAndUser(id, userId);
 
-  if (!posts) {
+  if (!post) {
     return res.status(404).json({ message: 'Post does not exist' });
   }
 
-  return res.status(200).json(posts);
+  return res.status(200).json(post);
+};
+
+const updateByIdAndUser = async (req, res) => {
+  const { id } = req.params; 
+  const { id: userId } = req.user;
+  const { title, content } = req.body;
+
+  const userIsAuthorized = await postService.updateByIdAndUser({ id, title, content, userId });
+
+  if (!userIsAuthorized) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+
+  const post = await postService.getByIdAndUser(id, userId);
+
+  return res.status(200).json(post);
 };
 
 module.exports = {
   create,
   getAllByUser,
   getByIdAndUser,
+  updateByIdAndUser,
 };

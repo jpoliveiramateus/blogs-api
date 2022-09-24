@@ -12,6 +12,19 @@ const validateCreatePost = async (req, res, next) => {
   next();
 };
 
+const validateUpdatePost = async (req, res, next) => {
+  const { error } = schemas.updatePostSchema.validate(req.body);
+
+  if (error) {
+    return res
+      .status(400)
+      .json({ message: error.message });
+  }
+
+  next();
+};
+
 module.exports = {
   validateCreatePost,
+  validateUpdatePost,
 };
