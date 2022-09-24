@@ -12,6 +12,15 @@ const create = async (req, res) => {
   }
 };
 
+const getAllByUser = async (req, res) => {
+  const { id: userId } = req.user;
+
+  const posts = await postService.getAllByUser(userId);
+
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   create,
+  getAllByUser,
 };
