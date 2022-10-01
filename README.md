@@ -1,5 +1,7 @@
 # 📝 Projeto Blogs API
 
+![blog](https://user-images.githubusercontent.com/99822908/193403619-0136be91-b5dc-49b0-8229-2a2610d8054e.png)
+
 ## 📄 Sobre
 
 Foi desenvolvido uma API e um banco de dados para a produção de conteúdo para um blog!
