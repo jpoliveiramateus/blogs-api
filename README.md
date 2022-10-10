@@ -75,6 +75,15 @@ git clone git@github.com:jpoliveiramateus/blogs-api.git
   <summary><strong>POST /login</strong></summary>
   </br>
   • Se o login for feito com sucesso retorna um token para o usuário.
+  </br> 
+  • O endpoint deve receber a seguinte estrutura, exemplo:
+  
+  ```json
+  {
+    "email": "lewishamilton@gmail.com",
+    "password": "123456"
+  }
+  ```
 </details>
 
 ### User
@@ -83,6 +92,18 @@ git clone git@github.com:jpoliveiramateus/blogs-api.git
   <summary><strong>POST /user</strong></summary>
   </br>
   • Cadastra um novo usuário, permitindo apenas um email válido, gerando um token.
+  </br> 
+  • O endpoint deve receber a seguinte estrutura, exemplo:
+  
+  ```json
+  {
+    "displayName": "Brett Wiltshire",
+    "email": "brett@email.com",
+    "password": "123456",
+    "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
+    // a imagem não é obrigatória
+  }
+  ```
 </details>
 
 <details>
@@ -117,6 +138,14 @@ git clone git@github.com:jpoliveiramateus/blogs-api.git
   • Cadastra uma nova categoria.
   </br>
   • Valida o token - req.authorization.
+  </br> 
+  • O endpoint deve receber a seguinte estrutura, exemplo:
+  
+  ```json
+  {
+    "name": "Typescript"
+  }
+  ```
 </details>
 
 <details>
@@ -135,6 +164,16 @@ git clone git@github.com:jpoliveiramateus/blogs-api.git
   • Adiciona um novo blog ao usuário logado e vincula as categorias em suas tabelas no banco de dados.
   </br>
   • Valida o token - req.authorization.
+  </br> 
+  • O endpoint deve receber a seguinte estrutura, exemplo:
+  
+  ```json
+  {
+    "title": "Latest updates, August 1st",
+    "content": "The whole text for the blog post goes here in this key",
+    "categoryIds": [1, 2]
+  }
+  ```
 </details>
 
 <details>
